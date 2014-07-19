@@ -65,7 +65,7 @@ define(["dojo/_base/lang", "dojo/_base/declare", "dojo/_base/array", "dojo/has",
 				if(!("ymin" in run) || !("ymax" in run)){
 					arr.forEach(run.data, function(val, idx){
 						if(val !== null){
-							var x = val.x || idx + 1;
+							var x = typeof val.x == "number" ? val.x : idx + 1;
 							stats.hmin = Math.min(stats.hmin, x);
 							stats.hmax = Math.max(stats.hmax, x);
 							stats.vmin = Math.min(stats.vmin, val.open, val.close, val.high, val.low);
@@ -143,7 +143,7 @@ define(["dojo/_base/lang", "dojo/_base/declare", "dojo/_base/array", "dojo/has",
 						var finalTheme = t.addMixin(theme, "candlestick", v, true);
 
 						//	calculate the points we need for OHLC
-						var x = ht(v.x || (j+0.5)) + offsets.l + gap,
+						var x = ht(typeof v.x == "number" ? v.x - 0.5 : j + 0.5) + offsets.l + gap,
 							y = dim.height - offsets.b,
 							open = vt(v.open),
 							close = vt(v.close),
